@@ -1,7 +1,7 @@
-package ir.bigz.springboot.springbootjdbc;
+package ir.bigz.springboot.springjdbc;
 
-import ir.bigz.springboot.springbootjdbc.user.UserRepository;
-import ir.bigz.springboot.springbootjdbc.user.User;
+import ir.bigz.springboot.springjdbc.user.UserRepository;
+import ir.bigz.springboot.springjdbc.user.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,8 @@ import org.springframework.test.util.AssertionErrors;
 
 import java.util.List;
 
-@SpringBootTest(classes = SpringbootJdbcApplication.class)
-class SpringbootJdbcApplicationTests {
+@SpringBootTest(classes = SpringJdbcApplication.class)
+class SpringJdbcApplicationTests {
 
 	@Autowired
 	UserRepository userRepository;

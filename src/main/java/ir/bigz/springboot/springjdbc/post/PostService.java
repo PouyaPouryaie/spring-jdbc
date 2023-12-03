@@ -1,4 +1,4 @@
-package ir.bigz.springboot.springbootjdbc.post;
+package ir.bigz.springboot.springjdbc.post;
 
 import java.util.List;
 import java.util.Optional;

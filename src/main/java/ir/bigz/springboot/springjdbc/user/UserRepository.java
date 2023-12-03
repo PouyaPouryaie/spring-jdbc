@@ -1,4 +1,4 @@
-package ir.bigz.springboot.springbootjdbc.user;
+package ir.bigz.springboot.springjdbc.user;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

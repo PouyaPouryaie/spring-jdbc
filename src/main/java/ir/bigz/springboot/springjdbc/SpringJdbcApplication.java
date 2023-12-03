@@ -1,7 +1,7 @@
-package ir.bigz.springboot.springbootjdbc;
+package ir.bigz.springboot.springjdbc;
 
-import ir.bigz.springboot.springbootjdbc.post.Post;
-import ir.bigz.springboot.springbootjdbc.post.PostService;
+import ir.bigz.springboot.springjdbc.post.Post;
+import ir.bigz.springboot.springjdbc.post.PostService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Bean;
 import java.time.LocalDate;
 
 @SpringBootApplication
-public class SpringbootJdbcApplication {
+public class SpringJdbcApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootJdbcApplication.class, args);
+		SpringApplication.run(SpringJdbcApplication.class, args);
 	}
 
 	@Bean

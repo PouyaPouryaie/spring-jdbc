@@ -1,4 +1,4 @@
-package ir.bigz.springboot.springbootjdbc.post;
+package ir.bigz.springboot.springjdbc.post;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

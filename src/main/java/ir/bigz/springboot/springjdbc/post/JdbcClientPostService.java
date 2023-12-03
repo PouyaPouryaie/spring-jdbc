@@ -1,4 +1,4 @@
-package ir.bigz.springboot.springbootjdbc.post;
+package ir.bigz.springboot.springjdbc.post;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

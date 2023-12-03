@@ -1,4 +1,4 @@
-package ir.bigz.springboot.springbootjdbc.user;
+package ir.bigz.springboot.springjdbc.user;
 
 
 public class User
