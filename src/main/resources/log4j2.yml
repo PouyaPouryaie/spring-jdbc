@@ -35,6 +35,7 @@ Configuration:
     root:
       level: error
       appenderRef:
+        - ref: LogToConsole
         - ref: LogToRollingFile
 
     logger:
@@ -43,4 +44,3 @@ Configuration:
         additivity: false
         appenderRef:
           - ref: LogToConsole
-          - ref: LogToRollingFile

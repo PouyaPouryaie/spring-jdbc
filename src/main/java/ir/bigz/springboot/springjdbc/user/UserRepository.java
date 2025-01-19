@@ -3,6 +3,7 @@ package ir.bigz.springboot.springjdbc.user;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -26,17 +27,23 @@ public class UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Transactional(readOnly=true)
     public List<User> findAll() {
         return jdbcTemplate.query("select * from users", new UserRowMapper());
     }
 
-    @Transactional(readOnly=true)
     public User findUserById(long id) {
         try {
             return jdbcTemplate.queryForObject("select * from users where id=?", new UserRowMapper(), new Object[]{id});
         }catch (EmptyResultDataAccessException e) {
             return null;
+        }
+    }
+
+    public void updateUser(long id,final User user) {
+        String sql = "UPDATE users set name = ?, email = ?, updated_on = NOW(), version = version + 1 where id = ? and version = ?";
+        int updateRow = jdbcTemplate.update(sql, user.getName(), user.getEmail(), id, user.getVersion());
+        if (updateRow == 0) {
+            throw new OptimisticLockingFailureException("Failed to update post with id " + user.getId() + ". Version mismatch.");
         }
     }
 
@@ -74,10 +81,16 @@ class UserRowMapper implements RowMapper<User>
         user.setId(rs.getInt("id"));
         user.setName(rs.getString("name"));
         user.setEmail(rs.getString("email"));
+        user.setVersion(rs.getInt("version"));
         Timestamp createdOn = rs.getTimestamp("created_on");
+        Timestamp updatedOn = rs.getTimestamp("updated_on");
 
         if(createdOn != null) {
             user.setCreatedOn(createdOn.toLocalDateTime().truncatedTo(ChronoUnit.SECONDS));
+        }
+
+        if(updatedOn != null) {
+            user.setUpdatedOn(updatedOn.toLocalDateTime().truncatedTo(ChronoUnit.SECONDS));
         }
 
         return user;

@@ -1,16 +1,20 @@
 package ir.bigz.springboot.springjdbc.user;
 
 
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDateTime;
 
 public class User
 {
 
+    @Id
     private Integer id;
     private String name;
     private String email;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
+    private int version; // Version field for optimistic locking
 
 
     public User()
@@ -68,5 +72,13 @@ public class User
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

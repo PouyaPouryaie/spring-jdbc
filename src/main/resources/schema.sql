@@ -1,9 +1,12 @@
-CREATE TABLE IF NOT EXISTS users (
+DROP TABLE IF EXISTS Users;
+
+CREATE TABLE IF NOT EXISTS Users (
     id BIGSERIAL primary key,
     name varchar(100) NOT NULL,
     email varchar(100) DEFAULT NULL,
     created_on TIMESTAMP,
-    updated_on TIMESTAMP
+    updated_on TIMESTAMP,
+    version INT NOT NULL DEFAULT 0 -- Version column
 );
 
 DROP TABLE IF EXISTS Post;

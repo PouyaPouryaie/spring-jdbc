@@ -7,3 +7,6 @@ There are different package that show different feature of spring jdbc.
    - what's different between jdbcClient with jdbcTemplate
 2. JDBC Template - ```ir.bigz.springboot.springjdbc.user```
    - there is a sample code of jdbc template in this package
+
+## Note
+The User section contains tools and abstraction from spring-data-jdbc
