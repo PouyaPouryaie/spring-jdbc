@@ -1,0 +1,46 @@
+#log level visibility: off-fatal-error-warn-info-debug-trace-all
+Configuration:
+  status: debug
+
+  Properties:
+    property:
+      - name: "LOG_TO_CONSOLE"
+        value: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+      - name: "LOG_TO_FILE"
+        value: "%d %p %C{1.} [%t] %m%n"
+
+  appenders:
+    console:
+      name: LogToConsole
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: '${LOG_TO_CONSOLE}'
+
+    rollingFile:
+      name: LogToRollingFile
+      fileName: logs/app.log
+      filePattern: logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz
+      PatternLayout:
+        pattern: '${LOG_TO_FILE}'
+      Policies:
+        SizeBasedTriggeringPolicy:
+          size: 10 MB
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+      DefaultRolloverStrategy:
+        max: 10
+
+  loggers:
+    root:
+      level: error
+      appenderRef:
+        - ref: LogToRollingFile
+
+    logger:
+      - name: ir.bigz.springboot.springjdbc
+        level: debug
+        additivity: false
+        appenderRef:
+          - ref: LogToConsole
+          - ref: LogToRollingFile

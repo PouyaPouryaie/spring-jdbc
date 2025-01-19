@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.0</version>
+		<version>3.4.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ir.bigz.springboot</groupId>
 	<artifactId>spring-jdbc</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<name>spring-jdbc</name>
 	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot jdbc</description>
@@ -57,12 +57,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<groupId>org.junit.vintage</groupId>-->
+<!--					<artifactId>junit-vintage-engine</artifactId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
