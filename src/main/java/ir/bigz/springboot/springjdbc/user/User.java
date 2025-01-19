@@ -1,12 +1,17 @@
 package ir.bigz.springboot.springjdbc.user;
 
 
+import java.time.LocalDateTime;
+
 public class User
 {
 
     private Integer id;
     private String name;
     private String email;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
+
 
     public User()
     {
@@ -49,4 +54,19 @@ public class User
         this.email = email;
     }
 
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
 }

@@ -2,6 +2,7 @@ package ir.bigz.springboot.springjdbc.user;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Repository
@@ -29,12 +32,16 @@ public class UserRepository {
     }
 
     @Transactional(readOnly=true)
-    public User findUserById(Integer id) {
-        return jdbcTemplate.queryForObject("select * from users where id=?", new Object[]{id}, new UserRowMapper());
+    public User findUserById(long id) {
+        try {
+            return jdbcTemplate.queryForObject("select * from users where id=?", new UserRowMapper(), new Object[]{id});
+        }catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public User create(final User user) {
-        final String sql = "insert into users(name,email) values(?,?)";
+        final String sql = "insert into users(name,email, created_on) values(?,?, NOW())";
 
         KeyHolder holder = new GeneratedKeyHolder();
 
@@ -49,6 +56,11 @@ public class UserRepository {
         Integer newUserId = (Integer) holder.getKeys().get("id");
         logger.debug("id is : " + newUserId);
         user.setId(newUserId);
+
+        Timestamp createdOn = (Timestamp) holder.getKeys().get("created_on");
+        LocalDateTime localDateTime = createdOn.toLocalDateTime().truncatedTo(ChronoUnit.SECONDS);
+        user.setCreatedOn(localDateTime);
+
         return user;
     }
 }
@@ -62,6 +74,11 @@ class UserRowMapper implements RowMapper<User>
         user.setId(rs.getInt("id"));
         user.setName(rs.getString("name"));
         user.setEmail(rs.getString("email"));
+        Timestamp createdOn = rs.getTimestamp("created_on");
+
+        if(createdOn != null) {
+            user.setCreatedOn(createdOn.toLocalDateTime().truncatedTo(ChronoUnit.SECONDS));
+        }
 
         return user;
     }
